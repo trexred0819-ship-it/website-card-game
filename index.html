@@ -2391,7 +2391,7 @@
                 try { ws.send(JSON.stringify({ type: 'LEAVE_QUEUE' })); } catch(e) {}
                 ws.close();
             }
-            DOM.matchmakingScreen.querySelector('#matchmaking-idle').style.display = 'block';
+            DOM.matchmakingScreen.querySelector('#matchmaking-idle').style.display = 'flex';
             DOM.matchmakingScreen.querySelector('#matchmaking-waiting').style.display = 'none';
             DOM.matchmakingScreen.querySelector('#match-starting').style.display = 'none';
             soundEffects.bgMusic2.pause();
@@ -2936,7 +2936,7 @@
             const idle = DOM.matchmakingScreen.querySelector('#matchmaking-idle');
             const waiting = DOM.matchmakingScreen.querySelector('#matchmaking-waiting');
             const starting = DOM.matchmakingScreen.querySelector('#match-starting');
-            if (idle) idle.style.display = 'block';
+            if (idle) idle.style.display = 'flex';
             if (waiting) waiting.style.display = 'none';
             if (starting) starting.style.display = 'none';
 
