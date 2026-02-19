@@ -1386,6 +1386,18 @@
                     updateGameUI(data.state);
                     addLog('✅ Berhasil tersambung kembali!');
                     ws.send(JSON.stringify({ type: 'PLAYER_ACTIVE', roomId: currentRoomId }));
+                    // Putar bgMusic2 saat reconnect berhasil
+                    try {
+                        soundEffects.bgMusic.pause();
+                        soundEffects.bgMusic2.currentTime = 0;
+                        soundEffects.bgMusic2.play().catch(() => {
+                            // Autoplay diblokir browser, tunggu interaksi pertama user
+                            document.addEventListener('click', function playOnFirstClick() {
+                                soundEffects.bgMusic2.play().catch(() => {});
+                                document.removeEventListener('click', playOnFirstClick);
+                            });
+                        });
+                    } catch(e) {}
                     // Pindah ke onmessage normal
                     ws.onmessage = (ev) => handleServerMessage(JSON.parse(ev.data));
                 } else if (data.type === 'ERROR') {
