@@ -1170,7 +1170,7 @@
         // =============================================
         function showProfileBadge(uid, nickname) {
             const badge = document.getElementById('profile-badge');
-            badge.style.display = 'block';
+            // Badge hanya ditampilkan di matchmaking-screen, bukan di sini
             document.getElementById('profile-nickname-display').textContent = nickname;
             
             // Tampilkan ID pendek (6 karakter terakhir UID)
@@ -1362,6 +1362,7 @@
             document.getElementById('pre-loading-screen').style.display = 'none';
             document.getElementById('matchmaking-screen').classList.remove('active');
             document.getElementById('game-container').classList.add('active');
+            document.getElementById('profile-badge').style.display = 'none';
             
             ws = new WebSocket(SERVER_URL);
 
@@ -2101,6 +2102,7 @@
             setTimeout(() => {
                 preScreen.style.display = 'none';
                 document.getElementById('matchmaking-screen').classList.add('active');
+                document.getElementById('profile-badge').style.display = 'block';
             }, 500);
         }
 
@@ -2188,6 +2190,7 @@
                     setTimeout(() => {
                         DOM.matchmakingScreen.classList.remove('active');
                         DOM.gameContainer.classList.add('active');
+                        document.getElementById('profile-badge').style.display = 'none';
                         updateGameUI(data.state);
                         addLog('🎮 Game dimulai! Selamat bermain!');
                     }, 3000);
@@ -2692,18 +2695,12 @@
             if (waiting) waiting.style.display = 'none';
             if (starting) starting.style.display = 'none';
 
-            // Tampilkan pre-loading screen, langsung tunjukkan tombol PLAY (lewati animasi loading)
+            // Sembunyikan pre-loading screen, tampilkan matchmaking-screen (layar utama)
             const preScreen = document.getElementById('pre-loading-screen');
-            preScreen.style.display = 'flex';
+            preScreen.style.display = 'none';
             preScreen.classList.remove('hidden');
-            const infoEl    = document.getElementById('pre-loading-info');
-            const spinnerEl = document.getElementById('pre-loading-spinner');
-            const subtitleEl = document.querySelector('.pre-loading-subtitle');
-            const playBtn   = document.getElementById('btn-play');
-            if (infoEl)     infoEl.style.display = 'none';
-            if (spinnerEl)  spinnerEl.style.display = 'none';
-            if (subtitleEl) subtitleEl.style.display = 'none';
-            if (playBtn)    playBtn.style.display = 'block';
+            DOM.matchmakingScreen.classList.add('active');
+            document.getElementById('profile-badge').style.display = 'block';
         }
 
         // =============================================
