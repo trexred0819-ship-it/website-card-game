@@ -665,17 +665,6 @@
     <!-- TAMBAH di awal <body>, SEBELUM pre-loading screen (HTML) -->
 
     <!-- PROFILE BADGE (pojok kanan atas) -->
-    <div id="profile-badge" title="Klik untuk logout">
-        <div class="profile-badge-inner">
-            <div class="profile-avatar" id="profile-avatar">👤</div>
-            <div class="profile-info">
-                <div class="profile-nickname" id="profile-nickname-display">-</div>
-                <div class="profile-id" id="profile-id-display">-</div>
-            </div>
-            <div class="profile-status"></div>
-        </div>
-    </div>
-
     <!-- AUTO MODE INDICATOR -->
     <div id="auto-mode-indicator">🤖 Mode Otomatis Aktif</div>
 
@@ -746,6 +735,16 @@
 
     <!-- MATCHMAKING SCREEN -->
     <div id="matchmaking-screen">
+        <div id="profile-badge" title="Klik untuk logout">
+            <div class="profile-badge-inner">
+                <div class="profile-avatar" id="profile-avatar">👤</div>
+                <div class="profile-info">
+                    <div class="profile-nickname" id="profile-nickname-display">-</div>
+                    <div class="profile-id" id="profile-id-display">-</div>
+                </div>
+                <div class="profile-status"></div>
+            </div>
+        </div>
         <div class="matchmaking-container">
             <h1 class="matchmaking-title">🎮 Card Game Online</h1>
 
@@ -1001,7 +1000,6 @@
             document.getElementById('pre-loading-screen').style.display = 'none';
             document.getElementById('matchmaking-screen').classList.remove('active');
             document.getElementById('game-container').classList.remove('active');
-            document.getElementById('profile-badge').style.display = 'none';
             // Reset state UI agar tidak "stuck" dari sesi sebelumnya
             setAuthLoading(false);
             showAuthError('');
@@ -1169,8 +1167,6 @@
         // PROFILE BADGE
         // =============================================
         function showProfileBadge(uid, nickname) {
-            const badge = document.getElementById('profile-badge');
-            // Badge hanya ditampilkan di matchmaking-screen, bukan di sini
             document.getElementById('profile-nickname-display').textContent = nickname;
             
             // Tampilkan ID pendek (6 karakter terakhir UID)
@@ -1330,7 +1326,6 @@
             if (loginEmail) loginEmail.value = '';
             if (loginPass)  loginPass.value  = '';
 
-            document.getElementById('profile-badge').style.display = 'none';
             document.getElementById('game-container').classList.remove('active');
             document.getElementById('pre-loading-screen').style.display = 'none';
             // showAuthScreen() akan dipanggil otomatis oleh onAuthStateChanged(null)
@@ -1362,7 +1357,6 @@
             document.getElementById('pre-loading-screen').style.display = 'none';
             document.getElementById('matchmaking-screen').classList.remove('active');
             document.getElementById('game-container').classList.add('active');
-            document.getElementById('profile-badge').style.display = 'none';
             
             ws = new WebSocket(SERVER_URL);
 
@@ -2102,7 +2096,6 @@
             setTimeout(() => {
                 preScreen.style.display = 'none';
                 document.getElementById('matchmaking-screen').classList.add('active');
-                document.getElementById('profile-badge').style.display = 'block';
             }, 500);
         }
 
@@ -2190,7 +2183,6 @@
                     setTimeout(() => {
                         DOM.matchmakingScreen.classList.remove('active');
                         DOM.gameContainer.classList.add('active');
-                        document.getElementById('profile-badge').style.display = 'none';
                         updateGameUI(data.state);
                         addLog('🎮 Game dimulai! Selamat bermain!');
                     }, 3000);
@@ -2700,7 +2692,6 @@
             preScreen.style.display = 'none';
             preScreen.classList.remove('hidden');
             DOM.matchmakingScreen.classList.add('active');
-            document.getElementById('profile-badge').style.display = 'block';
         }
 
         // =============================================
