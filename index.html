@@ -1994,11 +1994,14 @@
             zoomOut:   new Audio('sounds/zoom_out.mp3'),
             forcePick: new Audio('sounds/force_pick.mp3'),
             drawCard:  new Audio('sounds/draw_card.mp3'),
-            bgMusic:   new Audio('sounds/bg_music.mp3')
+            bgMusic:   new Audio('sounds/bg_music.mp3'),
+            bgMusic2:  new Audio('sounds/bg_music2.mp3')
         };
 
         soundEffects.bgMusic.loop = true;
         soundEffects.bgMusic.volume = 0.3;
+        soundEffects.bgMusic2.loop = true;
+        soundEffects.bgMusic2.volume = 0.3;
         soundEffects.zoomIn.volume = 0.5;
         soundEffects.zoomOut.volume = 0.5;
         soundEffects.forcePick.volume = 0.6;
@@ -2010,7 +2013,7 @@
         document.addEventListener('click', function unlockAudio() {
             if (!audioUnlocked) {
                 Object.values(soundEffects).forEach(s => {
-                    if (s === soundEffects.bgMusic) return; // jangan pause bgMusic
+                    if (s === soundEffects.bgMusic || s === soundEffects.bgMusic2) return;
                     s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => {});
                 });
                 audioUnlocked = true;
@@ -2108,6 +2111,10 @@
         // =============================================
         function startMatchmaking() {
             soundEffects.bgMusic.pause();
+            try {
+                soundEffects.bgMusic2.currentTime = 0;
+                soundEffects.bgMusic2.play().catch(() => {});
+            } catch(e) {}
             DOM.matchmakingScreen.querySelector('#matchmaking-idle').style.display = 'none';
             DOM.matchmakingScreen.querySelector('#matchmaking-waiting').style.display = 'block';
 
@@ -2157,6 +2164,8 @@
             DOM.matchmakingScreen.querySelector('#matchmaking-idle').style.display = 'block';
             DOM.matchmakingScreen.querySelector('#matchmaking-waiting').style.display = 'none';
             DOM.matchmakingScreen.querySelector('#match-starting').style.display = 'none';
+            soundEffects.bgMusic2.pause();
+            soundEffects.bgMusic2.currentTime = 0;
             soundEffects.bgMusic.play().catch(() => {});
         }
 
@@ -2654,6 +2663,12 @@
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('active');
             });
+
+            // Hentikan bgMusic2 (musik matchmaking) jika masih berjalan
+            try {
+                soundEffects.bgMusic2.pause();
+                soundEffects.bgMusic2.currentTime = 0;
+            } catch(e) {}
 
             // Putar bgMusic (user gesture sudah terjadi karena klik tombol)
             try {
