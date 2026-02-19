@@ -644,6 +644,97 @@
             font-size: 0.9em;
             animation: pulseUrgent 1.5s ease-in-out infinite;
         }
+        /* ============================================ */
+        /* ENSIKLOPEDIA */
+        /* ============================================ */
+        .btn-encyclopedia {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #fff; font-size: 1em; font-weight: bold;
+            padding: 14px 32px; border-radius: 14px;
+            margin-top: 16px; display: block;
+            width: 100%; max-width: 280px; border: none;
+            box-shadow: 0 6px 20px rgba(240,147,251,0.4);
+            letter-spacing: 0.3px;
+        }
+        .btn-encyclopedia:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(240,147,251,0.6); }
+
+        #encyclopedia-screen {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 15000; overflow-y: auto;
+        }
+        .enc-header {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+            padding: 16px 20px; display: flex; align-items: center;
+            justify-content: space-between; position: sticky; top: 0; z-index: 100;
+        }
+        .enc-title { font-size: 1.4em; font-weight: bold; color: #fff; }
+        .btn-enc-close {
+            background: rgba(244,67,54,0.85); color: #fff;
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 10px;
+            padding: 8px 18px; font-size: 0.9em; font-weight: bold;
+        }
+        .btn-enc-close:hover { background: #f44336; transform: none; box-shadow: none; }
+
+        .enc-tabs { display: flex; gap: 8px; padding: 20px 20px 0; }
+        .enc-tab {
+            flex: 1; max-width: 200px; padding: 12px 10px;
+            border-radius: 14px 14px 0 0; font-size: 1em; font-weight: bold;
+            cursor: pointer; border: none;
+            background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.65);
+            transition: all 0.2s; box-shadow: none;
+        }
+        .enc-tab.active { background: rgba(255,255,255,0.30); color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .enc-tab:hover:not(.active) { background: rgba(255,255,255,0.22); color: #fff; transform: none; box-shadow: none; }
+
+        .enc-tab-content { display: none; padding: 20px; }
+        .enc-tab-content.active { display: block; }
+
+        .enc-province-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+        .enc-prov-btn {
+            background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9);
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
+            padding: 7px 16px; font-size: 0.8em; font-weight: bold;
+            cursor: pointer; transition: all 0.2s; box-shadow: none;
+        }
+        .enc-prov-btn:hover { background: rgba(255,255,255,0.25); color: #fff; transform: none; box-shadow: none; }
+        .enc-prov-btn.active { background: linear-gradient(135deg,#f093fb 0%,#f5576c 100%); color: #fff; border-color: transparent; box-shadow: 0 3px 10px rgba(0,0,0,0.25); }
+
+        .enc-province-section { margin-bottom: 36px; }
+        .enc-province-name {
+            font-size: 1.15em; font-weight: bold; color: #fff;
+            margin-bottom: 14px; padding: 10px 16px;
+            background: rgba(255,255,255,0.15); border-radius: 10px;
+            border-left: 4px solid rgba(255,255,255,0.6);
+            display: flex; align-items: center; gap: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .enc-cards-row { display: flex; flex-wrap: wrap; gap: 14px; padding-left: 4px; }
+        .enc-card-wrapper { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .enc-power-badge {
+            font-size: 0.72em; background: rgba(255,255,255,0.2); color: #fff;
+            border: 1px solid rgba(255,255,255,0.35); border-radius: 8px;
+            padding: 3px 10px; font-weight: bold;
+        }
+
+        .enc-rules-container { max-width: 680px; margin: 0 auto; }
+        .enc-rules-title { text-align: center; font-size: 1.5em; font-weight: bold; margin-bottom: 8px; color: #fff; }
+        .enc-rules-subtitle { text-align: center; font-size: 0.9em; color: rgba(255,255,255,0.7); margin-bottom: 28px; }
+        .enc-rule-card {
+            background: rgba(255,255,255,0.15); border-radius: 16px;
+            padding: 20px 22px; margin-bottom: 14px;
+            border-left: 5px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .enc-rule-icon { font-size: 2em; margin-bottom: 8px; display: block; }
+        .enc-rule-heading { font-size: 1.05em; font-weight: bold; color: #fff; margin-bottom: 8px; }
+        .enc-rule-text { font-size: 0.92em; color: rgba(255,255,255,0.88); line-height: 1.8; }
+        .enc-rarity-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .enc-rarity-chip { padding: 5px 14px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+
     </style>
 </head>
 <body>
@@ -750,9 +841,10 @@
         <div class="matchmaking-container">
             <h1 class="matchmaking-title">🎮 Card Game Online</h1>
 
-            <div id="matchmaking-idle">
+            <div id="matchmaking-idle" style="display:flex;flex-direction:column;align-items:center;">
                 <p style="font-size:1.2em; margin-bottom:30px;">Main dengan pemain lain secara online!</p>
                 <button class="btn-start" onclick="startMatchmaking()">🎮 MAIN ONLINE</button>
+                <button class="btn-encyclopedia" onclick="showEncyclopedia()">🧭 &nbsp; Ensiklopedia &nbsp; 🧭</button>
             </div>
 
             <div id="matchmaking-waiting" style="display:none;">
@@ -763,9 +855,109 @@
             </div>
 
             <div id="match-starting" style="display:none;">
-                <h2>✅ Match Ditemukan!</h2>
+                <h2>✅ Lawan Ditemukan!</h2>
                 <p id="match-info" style="font-size:1.3em; margin:20px 0;"></p>
                 <p style="font-size:1.1em;">Game akan dimulai dalam 3 detik...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENCYCLOPEDIA SCREEN -->
+    <div id="encyclopedia-screen">
+        <div class="enc-header">
+            <div class="enc-title">🧭 Ensiklopedia Nusantara</div>
+            <button class="btn-enc-close" onclick="hideEncyclopedia()">✖ Tutup</button>
+        </div>
+
+        <div class="enc-tabs">
+            <button class="enc-tab active" id="enc-tab-btn-cards" onclick="showEncTab('cards')">🔶 Kartu</button>
+            <button class="enc-tab" id="enc-tab-btn-rules" onclick="showEncTab('rules')">📖 Aturan</button>
+        </div>
+
+        <!-- TAB KARTU -->
+        <div class="enc-tab-content active" id="enc-tab-cards">
+            <div class="enc-province-filter" id="enc-prov-filter"></div>
+            <div id="enc-cards-container"></div>
+        </div>
+
+        <!-- TAB ATURAN -->
+        <div class="enc-tab-content" id="enc-tab-rules">
+            <div class="enc-rules-container">
+                <div class="enc-rules-title">📖 Cara Main Card Game Nusantara</div>
+                <div class="enc-rules-subtitle">Mudah dipahami, seru dimainkan! 🎉</div>
+
+                <div class="enc-rule-card" style="border-color:#667eea;">
+                    <span class="enc-rule-icon">🎯</span>
+                    <div class="enc-rule-heading">Tujuan Permainan</div>
+                    <div class="enc-rule-text">
+                        Tujuannya sederhana — <strong>habiskan kartumu secepat mungkin!</strong> Pemain yang <strong>kartunya paling cepat habis</strong> akan jadi pemenang. Setiap ronde, kamu bermain kartu dari tanganmu, jadi semakin banyak kartu yang kamu mainkan, semakin dekat kamu ke kemenangan!
+                    </div>
+                </div>
+
+                <div class="enc-rule-card" style="border-color:#f093fb;">
+                    <span class="enc-rule-icon">🔶</span>
+                    <div class="enc-rule-heading">Jenis Kartu & Kekuatannya</div>
+                    <div class="enc-rule-text">Setiap provinsi punya 5 kartu dengan kekuatan berbeda:</div>
+                    <div class="enc-rarity-row">
+                        <span class="enc-rarity-chip" style="background:linear-gradient(135deg,#fff9c4,#fff59d);color:#5d4037;">👑 Ibu Kota — Power 5</span>
+                        <span class="enc-rarity-chip" style="background:linear-gradient(135deg,#e1bee7,#ce93d8);color:#4a148c;">💜 Rumah Adat — Power 4</span>
+                        <span class="enc-rarity-chip" style="background:linear-gradient(135deg,#bbdefb,#90caf9);color:#0d47a1;">💠 Pakaian Adat — Power 3</span>
+                        <span class="enc-rarity-chip" style="background:linear-gradient(135deg,#c8e6c9,#a5d6a7);color:#1b5e20;">🟢 Tarian — Power 2</span>
+                        <span class="enc-rarity-chip" style="background:linear-gradient(135deg,#f5f5f5,#e0e0e0);color:#424242;">⚪ Makanan Khas — Power 1</span>
+                    </div>
+                </div>
+
+                <div class="enc-rule-card" style="border-color:#f5576c;">
+                    <span class="enc-rule-icon">⚔️</span>
+                    <div class="enc-rule-heading">Tahap 1 — Siapa yang Jatuhkan Kartu Pertama?</div>
+                    <div class="enc-rule-text">
+                        Di setiap ronde, hanya <strong>1 pemain</strong> yang boleh jatuhkan kartu di Tahap 1. Kartu itu menentukan <strong>provinsi</strong> yang harus diikuti semua pemain lain.<br><br>
+                        🔵 <strong>Ronde pertama:</strong> Komputer yang jatuhkan kartu pertama secara otomatis.<br>
+                        🔴 <strong>Ronde berikutnya:</strong> Pemain yang memiliki <strong>kartu power tertinggi</strong> di ronde sebelumnya yang mendapat giliran jatuhkan kartu pertama!
+                    </div>
+                </div>
+
+                <div class="enc-rule-card" style="border-color:#38ef7d;">
+                    <span class="enc-rule-icon">🔄</span>
+                    <div class="enc-rule-heading">Tahap 2 — Giliran Semua Pemain Lain</div>
+                    <div class="enc-rule-text">
+                        Setelah Tahap 1, semua pemain <strong>selain yang sudah jatuhkan kartu di Tahap 1</strong> harus ikut bermain dengan kartu dari <strong>provinsi yang sama</strong>.<br><br>
+                        ✅ <strong>Punya kartu provinsinya?</strong> Langsung jatuhkan!<br>
+                        🟡 <strong>Tidak punya, tapi Kartu Tersisa masih ada?</strong> Lakukan <strong>Draw Card</strong> dulu.<br>
+                        🔴 <strong>Tidak punya dan Kartu Tersisa sudah habis?</strong> Masuk mode <strong>Ambil Kartu</strong> dari meja!
+                    </div>
+                </div>
+
+                <div class="enc-rule-card" style="border-color:#ffd700;">
+                    <span class="enc-rule-icon">⚡</span>
+                    <div class="enc-rule-heading">Ambil Kartu dari Meja — Kapan & Siapa yang Bebas?</div>
+                    <div class="enc-rule-text">
+                        Mode <strong>Ambil Kartu</strong> terjadi saat kamu tidak punya kartu provinsi yang dimainkan dan tumpukan sudah habis. Kamu harus ambil salah satu kartu yang ada di meja.<br><br>
+                        🎉 <strong>Tapi ada kondisi BEBAS!</strong> Kamu bisa bebas dari kewajiban ambil kartu jika:<br>
+                        Jumlah pemain yang berhasil jatuhkan kartu di ronde ini <strong>lebih sedikit</strong> dari jumlah pemain yang kena mode Ambil Kartu.<br><br>
+                        Contoh: 3 pemain kena Ambil Kartu, tapi hanya 1 pemain yang berhasil jatuhkan kartu → <strong>2 pemain dibebaskan!</strong><br><br>
+                        Yang dibebaskan adalah pemain dengan <strong>kartu paling banyak di tangan</strong> — supaya permainan tetap adil! 😊
+                    </div>
+                </div>
+
+                <div class="enc-rule-card" style="border-color:#ff9800;">
+                    <span class="enc-rule-icon">🏆</span>
+                    <div class="enc-rule-heading">Pemenang Ronde & Juara Akhir</div>
+                    <div class="enc-rule-text">
+                        Di setiap ronde, <strong>kartu dengan power tertinggi</strong> menentukan siapa yang mulai ronde berikutnya. Tapi pemenang game bukan yang menang ronde terbanyak — melainkan <strong>siapa yang paling cepat menghabiskan semua kartunya! 🥇</strong> Urutan juara ditentukan dari siapa yang kartunya habis lebih dulu.
+                    </div>
+                </div>
+
+                <div class="enc-rule-card" style="border-color:#4dd0e1;">
+                    <span class="enc-rule-icon">💡</span>
+                    <div class="enc-rule-heading">Tips Jago Main!</div>
+                    <div class="enc-rule-text">
+                        ✅ <strong>Mainkan kartu sesegera mungkin</strong> — tujuannya habiskan kartu, bukan simpan!<br>
+                        ✅ Kartu power tinggi bagus dimainkan karena kamu jadi yang mulai ronde berikutnya.<br>
+                        ✅ Kalau Ambil Kartu, pilih kartu dengan power paling tinggi.<br>
+                        ✅ Kalau kamu duluan abis kartunya — kamu menang! 🚀
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -828,9 +1020,9 @@
                     <div style="margin-top:15px; text-align:center; padding-top:10px; border-top:2px solid rgba(255,255,255,0.15); display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
                         <button id="btn-surrender" onclick="doSurrender()"
                             style="padding:12px 30px; font-size:1em; font-weight:bold;
-                                   background:rgba(244,67,54,0.15); color:rgba(255,255,255,0.5);
-                                   border:2px solid rgba(244,67,54,0.3); border-radius:10px;
-                                   cursor:pointer; transition:all 0.3s;">
+                                   background:linear-gradient(135deg, #f44336 0%, #e53935 100%); color:#fff;
+                                   border:2px solid #ef5350; border-radius:10px;
+                                   cursor:pointer; transition:all 0.3s; box-shadow:0 4px 14px rgba(244,67,54,0.5);">
                             🏳️ Menyerah
                         </button>
                         <button id="btn-show-result" onclick="showMatchResult()"
@@ -2062,6 +2254,22 @@
         let reconnectTimer = null;
         const MAX_RECONNECT_ATTEMPTS = 3;
         let clientKeepAliveInterval = null;
+        let deckInitialized = false;
+
+        // Bot name disguise
+        const botNames = ['Miya','Nayla','Aldi','Marcel','Zoe','Kara','Mega','Genta','Flex','Angel','Teorita','Miko','Luba','Nana','Kong','Walka'];
+        const botNameMap = {};
+
+        function getBotDisplayName(player) {
+            if (!player.isBot) return player.name;
+            if (!botNameMap[player.id]) {
+                const used = Object.values(botNameMap);
+                const available = botNames.filter(n => !used.includes(n));
+                const pool = available.length > 0 ? available : botNames;
+                botNameMap[player.id] = pool[Math.floor(Math.random() * pool.length)];
+            }
+            return botNameMap[player.id];
+        }
 
         // Tambahkan ini setelah baris "let refreshButtonTimer = null;"
         const DOM = {
@@ -2192,8 +2400,7 @@
                 case 'MATCH_STARTING':
                     DOM.matchmakingScreen.querySelector('#matchmaking-waiting').style.display = 'none';
                     DOM.matchmakingScreen.querySelector('#match-starting').style.display = 'block';
-                    DOM.matchmakingScreen.querySelector('#match-info').textContent =
-                        `👥 ${data.humans} Pemain + 🤖 ${data.bots} Bot`;
+                    DOM.matchmakingScreen.querySelector('#match-info').textContent = 'Menyiapkan pertandingan...';
                     break;
 
                 case 'GAME_STARTED':
@@ -2268,6 +2475,7 @@
         function playerDrawCard() {
             const player = gameState && gameState.players.find(p => p.id === myPlayerId);
             if (!player || !player.mustDraw || !ws || !currentRoomId) return;
+            playSound('drawCard');
             ws.send(JSON.stringify({
                 type: 'DRAW_CARD',
                 roomId: currentRoomId
@@ -2286,14 +2494,14 @@
             forcePickClickDebounce = true;
             player.isProcessingAction = true;
 
-            playSound('forcePick');
-
             const cardIndex = gameState.topCard.findIndex(c => c.id === card.id);
             if (cardIndex === -1) {
                 forcePickClickDebounce = false;
                 player.isProcessingAction = false;
                 return;
             }
+
+            playSound('forcePick');
 
             // Disable all selectable cards in UI immediately for feedback
             const topCardsDiv = document.getElementById('top-cards');
@@ -2502,6 +2710,7 @@
 
                 if (gameState.forcePickMode && gameState.forcePickPlayers.some(p => p.id === player.id) && !player.hasPlayed) {
                     const topCardsDiv = document.getElementById('top-cards');
+                    if (!topCardsDiv) return;
                     const selectableCards = topCardsDiv.querySelectorAll('.card.selectable');
                     if (selectableCards.length === 0 && gameState.topCard.length > 0) {
                         player.isProcessingAction = false;
@@ -2524,6 +2733,7 @@
             const player = gameState.players.find(p => p.id === myPlayerId);
             if (!player) return;
             const btn = document.getElementById('sync-refresh-btn');
+            if (!btn) return;
 
             if (gameState.forcePickMode && gameState.forcePickPlayers.some(p => p.id === player.id) && !player.hasPlayed && gameState.topCard.length > 0) {
                 if (refreshButtonTimer) clearTimeout(refreshButtonTimer);
@@ -2604,7 +2814,7 @@
                 const isMe = myName && p.name === myName;
                 div.className = p.rank <= 3 ? 'ranking-item winner' : 'ranking-item loser';
                 if (isMe) div.style.cssText = 'outline: 2px solid #ffd700; outline-offset: 2px;';
-                div.textContent = `${medals[p.rank - 1] || '🎖️'} - ${p.name} (${p.hand ? p.hand.length : p.cardsLeft || 0} kartu tersisa)${isMe ? '  ← Kamu' : ''}`;
+                div.textContent = `${medals[p.rank - 1] || '🎖️'} - ${getBotDisplayName(p)} (${p.hand ? p.hand.length : p.cardsLeft || 0} kartu tersisa)${isMe ? '  ← Kamu' : ''}`;
                 rankings.appendChild(div);
             });
             modal.classList.add('active');
@@ -2652,8 +2862,8 @@
                 if (isMe) {
                     div.style.cssText = 'outline: 2px solid #ffd700; outline-offset:2px; background: linear-gradient(135deg,#fff9e6,#ffe082);';
                 }
-                div.innerHTML = `${rankLabel} &mdash; <strong>${p.name}</strong> `
-                    + `${p.isBot ? '🤖' : '👤'} `
+                div.innerHTML = `${rankLabel} &mdash; <strong>${getBotDisplayName(p)}</strong> `
+                    + `👤 `
                     + `<span style="font-weight:normal;color:#666">(${p.hand.length} kartu | ⚡${p.totalPower})</span>`
                     + (isMe ? ' <span style="color:#e65100;font-weight:bold">← Kamu</span>' : '');
                 resultRankDiv.appendChild(div);
@@ -2661,8 +2871,8 @@
 
             resultStatsDiv.innerHTML = `
                 <span>📋 Ronde ke-${gameState.round}</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <span>🃏 Draw Pile: ${gameState.drawPile ? gameState.drawPile.length : 0} kartu</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <span>🗑️ Discard: ${gameState.discardPile ? gameState.discardPile.length : 0} kartu</span>
+                <span>🔶 Kartu Tersisa: ${gameState.drawPile ? gameState.drawPile.length : 0} kartu</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <span>🗑️ Kartu Terpakai: ${gameState.discardPile ? gameState.discardPile.length : 0} kartu</span>
             `;
 
             document.getElementById('match-result-modal').classList.add('active');
@@ -2707,6 +2917,7 @@
             gameState = null;
             deckInitialized = false;
             lsClear();
+            Object.keys(botNameMap).forEach(k => delete botNameMap[k]);
 
             // Sembunyikan layar game & matchmaking
             DOM.gameContainer.classList.remove('active');
@@ -2849,8 +3060,6 @@
             });
         }
 
-        let deckInitialized = false; // ← taruh di luar fungsi, sejajar variabel global lainnya
-
         function updatePlayerUI() {
             if (!gameState || !myPlayerId) return;
             const player = gameState.players.find(p => p.id === myPlayerId);
@@ -2917,7 +3126,7 @@
                         e.stopPropagation();
                         if (player.hasPlayed) addLog('❌ Anda sudah bermain di ronde ini!');
                         else if (player.mustDraw) addLog('❌ Anda harus Draw Card terlebih dahulu!');
-                        else if (player.mustForcePick) addLog('⏳ Tunggu proses Force Pick selesai!');
+                        else if (player.mustForcePick) addLog('⏳ Tunggu proses Ambil Kartu selesai!');
                         else addLog('❌ Kartu tidak bisa dimainkan saat ini!');
                     };
                 }
@@ -2972,11 +3181,11 @@
                 const div = document.createElement('div');
                 const isDone = p.hasPlayed || p.winner;
                 const isFP = p.mustForcePick;
-                div.className = `opponent-item ${isDone ? 'active' : ''} ${isFP ? 'warning' : ''} ${p.isBot ? 'bot-player' : 'human-player'}`;
+                div.className = `opponent-item ${isDone ? 'active' : ''} ${isFP ? 'warning' : ''} human-player`;
                 div.innerHTML = `
                     <div class="opponent-name">
                         <span class="status-dot ${isDone ? 'done' : 'waiting'}"></span>
-                        ${p.isBot ? '🤖' : '👤'} ${p.name}
+                        👤 ${getBotDisplayName(p)}
                         ${p.winner ? ` 🏆#${p.rank}` : ''}
                     </div>
                     <div class="opponent-stats">
@@ -3065,6 +3274,122 @@
                 clearInterval(clientKeepAliveInterval);
                 clientKeepAliveInterval = null;
             }
+        }
+
+        // ============================================================
+        // ENSIKLOPEDIA
+        // ============================================================
+        function showEncyclopedia() {
+            document.getElementById('encyclopedia-screen').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            renderEncFilter();
+            renderEncCards('Semua');
+        }
+
+        function hideEncyclopedia() {
+            document.getElementById('encyclopedia-screen').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function showEncTab(tab) {
+            document.getElementById('enc-tab-btn-cards').classList.toggle('active', tab === 'cards');
+            document.getElementById('enc-tab-btn-rules').classList.toggle('active', tab === 'rules');
+            document.getElementById('enc-tab-cards').classList.toggle('active', tab === 'cards');
+            document.getElementById('enc-tab-rules').classList.toggle('active', tab === 'rules');
+        }
+
+        function renderEncFilter() {
+            const filterDiv = document.getElementById('enc-prov-filter');
+            if (!filterDiv) return;
+            filterDiv.innerHTML = '';
+
+            const allBtn = document.createElement('button');
+            allBtn.className = 'enc-prov-btn active';
+            allBtn.textContent = '🌏 Semua Provinsi';
+            allBtn.onclick = () => {
+                document.querySelectorAll('.enc-prov-btn').forEach(b => b.classList.remove('active'));
+                allBtn.classList.add('active');
+                renderEncCards('Semua');
+            };
+            filterDiv.appendChild(allBtn);
+
+            provinces.forEach(prov => {
+                const btn = document.createElement('button');
+                btn.className = 'enc-prov-btn';
+                btn.textContent = prov.name;
+                btn.onclick = () => {
+                    document.querySelectorAll('.enc-prov-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderEncCards(prov.name);
+                };
+                filterDiv.appendChild(btn);
+            });
+        }
+
+        function renderEncCards(filter) {
+            const container = document.getElementById('enc-cards-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const regionEmojis = [
+                ['Aceh','🌊'], ['Sumatera Utara','🌴'], ['Sumatera Barat','🏔️'],
+                ['Riau','🌿'], ['Kepulauan Riau','⛵'], ['Jambi','🦁'],
+                ['Bengkulu','🦋'], ['Sumatera Selatan','🌾'], ['Bangka','💎'],
+                ['Lampung','🐘'], ['Jakarta','🏙️'], ['Jawa Barat','🍃'],
+                ['Banten','🦅'], ['Jawa Tengah','🏛️'], ['Yogyakarta','🎭'],
+                ['Jawa Timur','☕'], ['Bali','🏝️'], ['Nusa Tenggara Barat','🌺'],
+                ['Nusa Tenggara Timur','🐉'], ['Kalimantan Barat','🦧'],
+                ['Kalimantan Tengah','🌲'], ['Kalimantan Selatan','💫'],
+                ['Kalimantan Timur','🛢️'], ['Kalimantan Utara','🦅'],
+                ['Sulawesi Utara','🐠'], ['Gorontalo','🐚'], ['Sulawesi Tengah','🌴'],
+                ['Sulawesi Barat','🌊'], ['Sulawesi Selatan','⛵'], ['Sulawesi Tenggara','🌿'],
+                ['Maluku Utara','🌋'], ['Maluku','🌶️'],
+                ['Papua Barat Daya','🦜'], ['Papua Barat','🌿'], ['Papua Selatan','🦅'],
+                ['Papua Tengah','🏔️'], ['Papua Pegunungan','❄️'], ['Papua','🦜']
+            ];
+
+            const getEmoji = (name) => {
+                for (const [key, emoji] of regionEmojis) {
+                    if (name === key) return emoji;
+                }
+                return '🗺️';
+            };
+
+            const toShow = filter === 'Semua' ? provinces : provinces.filter(p => p.name === filter);
+
+            toShow.forEach(prov => {
+                const section = document.createElement('div');
+                section.className = 'enc-province-section';
+
+                const header = document.createElement('div');
+                header.className = 'enc-province-name';
+                header.innerHTML = `${getEmoji(prov.name)} ${prov.name} <span style="font-size:0.72em;opacity:0.55;font-weight:normal;margin-left:4px;">(${prov.cards.length} kartu)</span>`;
+                section.appendChild(header);
+
+                const cardsRow = document.createElement('div');
+                cardsRow.className = 'enc-cards-row';
+
+                prov.cards.forEach(cardData => {
+                    const fullCard = { ...cardData, id: 'enc_' + cardData.name, province: prov.name };
+                    const cardEl = createCardElement(fullCard);
+                    cardEl.style.cursor = 'default';
+                    cardEl.classList.add('locked');
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'enc-card-wrapper';
+
+                    const powerBadge = document.createElement('div');
+                    powerBadge.className = 'enc-power-badge';
+                    powerBadge.textContent = '⚡ Power ' + cardData.power;
+
+                    wrapper.appendChild(cardEl);
+                    wrapper.appendChild(powerBadge);
+                    cardsRow.appendChild(wrapper);
+                });
+
+                section.appendChild(cardsRow);
+                container.appendChild(section);
+            });
         }
     </script>
 </body>
