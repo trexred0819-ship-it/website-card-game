@@ -598,7 +598,7 @@
         /* PROFILE BADGE (pojok kanan atas) */
         /* ============================================ */
         #profile-badge {
-            display: block;
+            display: none;
             position: fixed;
             top: 12px; right: 15px;
             background: rgba(0,0,0,0.6);
@@ -606,7 +606,7 @@
             border: 2px solid rgba(255,255,255,0.3);
             border-radius: 12px;
             padding: 8px 14px;
-            z-index: 9999;
+            z-index: 10001;
             cursor: pointer;
             transition: all 0.3s;
             min-width: 160px;
@@ -733,18 +733,20 @@
         </div>
     </div>
 
+    <!-- PROFILE BADGE (standalone, hanya muncul di halaman matchmaking) -->
+    <div id="profile-badge" title="Klik untuk logout">
+        <div class="profile-badge-inner">
+            <div class="profile-avatar" id="profile-avatar">👤</div>
+            <div class="profile-info">
+                <div class="profile-nickname" id="profile-nickname-display">-</div>
+                <div class="profile-id" id="profile-id-display">-</div>
+            </div>
+            <div class="profile-status"></div>
+        </div>
+    </div>
+
     <!-- MATCHMAKING SCREEN -->
     <div id="matchmaking-screen">
-        <div id="profile-badge" title="Klik untuk logout">
-            <div class="profile-badge-inner">
-                <div class="profile-avatar" id="profile-avatar">👤</div>
-                <div class="profile-info">
-                    <div class="profile-nickname" id="profile-nickname-display">-</div>
-                    <div class="profile-id" id="profile-id-display">-</div>
-                </div>
-                <div class="profile-status"></div>
-            </div>
-        </div>
         <div class="matchmaking-container">
             <h1 class="matchmaking-title">🎮 Card Game Online</h1>
 
@@ -1177,7 +1179,7 @@
             document.getElementById('profile-avatar').textContent = nickname.charAt(0).toUpperCase();
             
             // Klik badge untuk logout
-            badge.onclick = confirmLogout;
+            document.getElementById('profile-badge').onclick = confirmLogout;
         }
 
         // =============================================
@@ -1356,6 +1358,7 @@
             // Tampilkan game container agar log terlihat
             document.getElementById('pre-loading-screen').style.display = 'none';
             document.getElementById('matchmaking-screen').classList.remove('active');
+            document.getElementById('profile-badge').style.display = 'none';
             document.getElementById('game-container').classList.add('active');
             
             ws = new WebSocket(SERVER_URL);
@@ -2096,6 +2099,7 @@
             setTimeout(() => {
                 preScreen.style.display = 'none';
                 document.getElementById('matchmaking-screen').classList.add('active');
+                document.getElementById('profile-badge').style.display = 'block';
             }, 500);
         }
 
@@ -2182,6 +2186,7 @@
 
                     setTimeout(() => {
                         DOM.matchmakingScreen.classList.remove('active');
+                        document.getElementById('profile-badge').style.display = 'none';
                         DOM.gameContainer.classList.add('active');
                         updateGameUI(data.state);
                         addLog('🎮 Game dimulai! Selamat bermain!');
@@ -2692,6 +2697,7 @@
             preScreen.style.display = 'none';
             preScreen.classList.remove('hidden');
             DOM.matchmakingScreen.classList.add('active');
+            document.getElementById('profile-badge').style.display = 'block';
         }
 
         // =============================================
