@@ -2784,6 +2784,7 @@
                 Array.from(topCardsDiv.children).forEach(el => {
                     if (!el.classList.contains('zoom-out')) {
                         el.classList.add('zoom-out');
+                        playSound('zoomOut');
                         setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
                     }
                 });
@@ -2794,6 +2795,7 @@
             Array.from(topCardsDiv.children).forEach(el => {
                 if (!currentIds.includes(el.dataset.cardId) && !el.classList.contains('zoom-out')) {
                     el.classList.add('zoom-out');
+                    playSound('zoomOut');
                     setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
                 }
             });
